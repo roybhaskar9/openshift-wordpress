@@ -24,7 +24,7 @@ parameters:
 
   - name: SOURCE_REPOSITORY_URL
     description: The URL of the repository with your application source code
-    value: https://github.com/jaredhocutt/openshift-wordpress.git
+    value: https://github.com/roybhaskar9/openshift-wordpress.git
     required: true
 
   - name: SOURCE_REPOSITORY_REF
@@ -47,10 +47,11 @@ parameters:
     description: >
       The exposed hostname that will route to the wordpress service, if left
       blank a value will be defaulted
-    value:
+    value: wordpress.YOUR_OPENSHIFT_IP.xip.io
 
   - name: DATABASE_HOST
     description: Database host
+    value: DATABASE_HOST_NAME_HERE
     required: true
 
   - name: DATABASE_NAME
