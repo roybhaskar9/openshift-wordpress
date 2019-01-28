@@ -142,19 +142,6 @@ objects:
           github:
             secret: ${GITHUB_WEBHOOK_SECRET}
 
-  #############################################################################
-  # WordPress Uploads PersistentVolumeClaim
-  #############################################################################
-  - kind: PersistentVolumeClaim
-    apiVersion: v1
-    metadata:
-      name: ${APPLICATION_NAME}-uploads
-    spec:
-      accessModes:
-        - ReadWriteMany
-      resources:
-        requests:
-          storage: 1Gi
 
   #############################################################################
   # WordPress DeploymentConfig
@@ -201,13 +188,6 @@ objects:
                   value: ${DATABASE_USER}
                 - name: WORDPRESS_DB_PASSWORD
                   value: ${DATABASE_PASSWORD}
-              volumeMounts:
-                - name: ${APPLICATION_NAME}-uploads
-                  mountPath: /opt/app-root/src/pv-uploads
-          volumes:
-            - name: ${APPLICATION_NAME}-uploads
-              persistentVolumeClaim:
-                claimName: ${APPLICATION_NAME}-uploads
 
   #############################################################################
   # MySQL Service
@@ -226,19 +206,6 @@ objects:
       selector:
         name: ${APPLICATION_NAME}-mysql
 
-  #############################################################################
-  # MySQL PersistentVolumeClaim
-  #############################################################################
-  - kind: PersistentVolumeClaim
-    apiVersion: v1
-    metadata:
-      name: ${APPLICATION_NAME}-mysql
-    spec:
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: 1Gi
 
   #############################################################################
   # MySQL DeploymentConfig
@@ -275,10 +242,3 @@ objects:
                   value: ${DATABASE_PASSWORD}
                 - name: MYSQL_DATABASE
                   value: ${DATABASE_NAME}
-              volumeMounts:
-                - name: ${APPLICATION_NAME}-mysql-data
-                  mountPath: /var/lib/mysql/data
-          volumes:
-            - name: ${APPLICATION_NAME}-mysql-data
-              persistentVolumeClaim:
-                claimName: ${APPLICATION_NAME}-mysql
