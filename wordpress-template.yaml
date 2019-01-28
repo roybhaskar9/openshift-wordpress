@@ -145,19 +145,6 @@ objects:
           github:
             secret: ${GITHUB_WEBHOOK_SECRET}
 
-  #############################################################################
-  # WordPress Uploads PersistentVolumeClaim
-  #############################################################################
-  - kind: PersistentVolumeClaim
-    apiVersion: v1
-    metadata:
-      name: ${APPLICATION_NAME}-uploads
-    spec:
-      accessModes:
-        - ReadWriteMany
-      resources:
-        requests:
-          storage: 1Gi
 
   #############################################################################
   # WordPress DeploymentConfig
@@ -204,10 +191,3 @@ objects:
                   value: ${DATABASE_USER}
                 - name: WORDPRESS_DB_PASSWORD
                   value: ${DATABASE_PASSWORD}
-              volumeMounts:
-                - name: ${APPLICATION_NAME}-uploads
-                  mountPath: /opt/app-root/src/pv-uploads
-          volumes:
-            - name: ${APPLICATION_NAME}-uploads
-              persistentVolumeClaim:
-                claimName: ${APPLICATION_NAME}-uploads
