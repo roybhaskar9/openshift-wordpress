@@ -7,7 +7,7 @@ metadata:
   annotations:
     openshift.io/display-name: WordPress
     description: >
-      A WordPress application using persistent storage for WordPress uploads.
+      A WordPress application.
     tags: instant-app,php,wordpress
     iconClass: icon-php
 labels:
